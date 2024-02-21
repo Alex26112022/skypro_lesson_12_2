@@ -1,11 +1,16 @@
 from utils import arrs
+import pytest
 
 
-def test_get():
-    assert arrs.get([1, 2, 3], 1, "test") == 3
-    assert arrs.get([], 0, "test") == "test"
+@pytest.mark.parametrize('array_, index_, default_, result',
+                         [([1, 2, 3], 1, "test", 2),
+                          ([], 0, "test", "test")])
+def test_get(array_, index_, default_, result):
+    assert arrs.get(array_, index_, default_) == result
 
 
-def test_slice():
-    assert arrs.my_slice([1, 2, 3, 4], 1, 3) == [2, 3]
-    assert arrs.my_slice([1, 2, 3], 1) == [2, 3]
+@pytest.mark.parametrize('arr, start, end, res',
+                         [([1, 2, 3, 4], 1, 3, [2, 3]),
+                          ([1, 2, 3], 1, None, [2, 3])])
+def test_slice(arr, start, end, res):
+    assert arrs.my_slice(arr, start, end) == res
